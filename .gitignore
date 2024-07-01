@@ -9,3 +9,4 @@ pm2-config.json
 package copy.json
 *.sql
 GuardianAI/prisma
+pm2-void3.json
