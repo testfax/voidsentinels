@@ -1,13 +1,7 @@
 <p align="center">
-<img src="https://user-images.githubusercontent.com/85346345/128631152-1b2fb9d3-b5cf-4451-a287-a6a7124e1818.png" width="250">
+<img src="" width="250">
 </p>
 
-# Warden.bot
-[![Security Scan](https://github.com/antixenoinitiative/warden.bot/actions/workflows/njsscan-analysis.yml/badge.svg)](https://github.com/antixenoinitiative/warden.bot/actions/workflows/njsscan-analysis.yml)
-
-Warden is a discord bot for the Anti-Xeno Initiative Discord Server. Based on Discord.js warden is a combination of systems that culminate in a relatively advanced custom built discord bot for the needs of the AXI.
-
-[![AXI Discord](https://discord.com/api/guilds/380246809076826112/embed.png?style=banner3)](https://discord.gg/bqmDxdm)
 
 ## Modularity
 The bot was overhauled and provides a single codebase where multiple bots can be ran from. Recommend running them from different hostnames as they are coded to detect the hostname they are configured to run on.
