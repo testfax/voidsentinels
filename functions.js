@@ -441,12 +441,13 @@ const thisBotFunctions = {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            // console.log(data);
-            return data
+            if (data.success) { return data }
+            if (!data.success) { return false }
+            
         } catch (error) {
             console.error('Error:', error);
+            return false
         }
-        return data
     },
     /**
      * Log a discord bot event in the Log Channel

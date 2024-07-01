@@ -7,51 +7,57 @@
             { "rank_name": "--- Strike Force Ranks ---", "id": "1176733727498436699"}
         ],
         "officer_ranks": [
-            { "rank_name": "General Staff", "id": "1173407686797303928"},
-            { "rank_name": "Colonel", "id": "1176734917263102063"},
-            { "rank_name": "Major", "id": "1176734800103608461"},
-            { "rank_name": "Captain", "id": "1176734589742481549"},
-            { "rank_name": "Lieutenant", "id": "1176734436746874910"},
-            { "rank_name": "Aviator", "id": "1176734299031093329"}
+            { "rank_name": "Admiral", "id": "1257076084285898793"},
+            { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+            { "rank_name": "Warrant Officer", "id": "1257076886777888858"}
         ],
         "listRoleAuthorization": [
-            { "rank_name": "General Staff", "id": "1173407686797303928"},
-            { "rank_name": "Colonel", "id": "1176734917263102063"},
-            { "rank_name": "Major", "id": "1176734800103608461"},
-            { "rank_name": "Captain", "id": "1176734589742481549"},
-            { "rank_name": "Lieutenant", "id": "1176734436746874910"}
+            { "rank_name": "Admiral", "id": "1257076084285898793"},
+            { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+            { "rank_name": "Warrant Officer", "id": "1257076886777888858"},
+            { "rank_name": "Sergeant", "id": "1257077069997936760"},
+            { "rank_name": "Corporal", "id": "1257077147529642086"},
+            { "rank_name": "Private", "id": "1257077276634251386"}
         ],
         "operation_order": {
             "opord_channel_approved": "1178034779896160256",
             "opord_channel_await": "1184592283337752697",
             "opord_approval_ranks": [
-                { "rank_name": "General Staff", "id": "1173407686797303928"},
-                { "rank_name": "Colonel", "id": "1176734917263102063"},
-                { "rank_name": "Major", "id": "1176734800103608461"}
+                { "rank_name": "Admiral", "id": "1257076084285898793"},
+                { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+                { "rank_name": "Warrant Officer", "id": "1257076886777888858"}
             ],
             "opord_participant_approval": [
-                { "rank_name": "General Staff", "id": "1173407686797303928"},
-                { "rank_name": "Colonel", "id": "1176734917263102063"},
-                { "rank_name": "Major", "id": "1176734800103608461"},
-                { "rank_name": "Captain", "id": "1176734589742481549"}
+                { "rank_name": "Admiral", "id": "1257076084285898793"},
+                { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+                { "rank_name": "Warrant Officer", "id": "1257076886777888858"}
             ],
             "opord_admin": [
-                { "rank_name": "General Staff", "id": "1173407686797303928"},
-                { "rank_name": "Colonel", "id": "1176734917263102063"},
-                { "rank_name": "Major", "id": "1176734800103608461"}
+                { "rank_name": "Admiral", "id": "1257076084285898793"},
+                { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+                { "rank_name": "Warrant Officer", "id": "1257076886777888858"}
             ]
         },
         "experienceQuery": [
-            { "rank_name": "General Staff", "id": "1173407686797303928"},
-            { "rank_name": "Colonel", "id": "1176734917263102063"},
-            { "rank_name": "Major", "id": "1176734800103608461"},
-            { "rank_name": "Captain", "id": "1176734589742481549"},
-            { "rank_name": "Lieutenant", "id": "1176734436746874910"}
+            { "rank_name": "Admiral", "id": "1257076084285898793"},
+            { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+            { "rank_name": "Warrant Officer", "id": "1257076886777888858"},
+            { "rank_name": "Sergeant", "id": "1257077069997936760"},
+            { "rank_name": "Corporal", "id": "1257077147529642086"},
+            { "rank_name": "Private", "id": "1257077276634251386"}
+        ],
+        "rsiinfo": [
+            { "rank_name": "Admiral", "id": "1257076084285898793"},
+            { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+            { "rank_name": "Warrant Officer", "id": "1257076886777888858"},
+            { "rank_name": "Sergeant", "id": "1257077069997936760"},
+            { "rank_name": "Corporal", "id": "1257077147529642086"},
+            { "rank_name": "Private", "id": "1257077276634251386"}
         ],
         "general_stuff": {
             "evaluateRoles_authorized": [
-                { "rank_name": "General Staff", "id": "1173407686797303928"},
-                { "rank_name": "Colonel", "id": "1176734917263102063"}
+                { "rank_name": "Admiral", "id": "1257076084285898793"},
+                { "rank_name": "Flight Leader", "id": "1257076744825868451"}
             ],
             "onboarding_roles": [
                 { "rank_name": "Decent Pilot", "id": "1173407248161198230"},
@@ -59,32 +65,29 @@
                 { "rank_name": "Collector", "id": "1173407165126549668"}
             ],
             "onboarding_roles_dividers": [
-                { "rank_name": "strikeForceRanks", "id": "1176733727498436699"},
-                { "rank_name": "skillranks", "id": "1174039901910618132"},
-                { "rank_name": "earnedRanks", "id": "1174040200352116806"},
-                { "rank_name": "activityranks", "id": "1174573514985050163"}
+                { "rank_name": "officers", "id": "1257395340710252615"},
+                { "rank_name": "org_roles", "id": "1257088912795631657"},
+                { "rank_name": "other_roles", "id": "1257089223845216341"}
             ],
             "allRanks": [
-                { "rank_name": "General Staff", "id": "1173407686797303928"},
-                { "rank_name": "Colonel", "id": "1176734917263102063"},
-                { "rank_name": "Major", "id": "1176734800103608461"},
-                { "rank_name": "Captain", "id": "1176734589742481549"},
-                { "rank_name": "Lieutenant", "id": "1176734436746874910"},
-                { "rank_name": "Aviator", "id": "1176734299031093329"},
-                { "rank_name": "Learner", "id": "1234222974115119169"}
+                { "rank_name": "Admiral", "id": "1257076084285898793"},
+                { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+                { "rank_name": "Warrant Officer", "id": "1257076886777888858"},
+                { "rank_name": "Sergeant", "id": "1257077069997936760"},
+                { "rank_name": "Corporal", "id": "1257077147529642086"},
+                { "rank_name": "Private", "id": "1257077276634251386"}
             ],
             "event_start_stop": [
-                { "rank_name": "General Staff", "id": "1173407686797303928"},
-                { "rank_name": "Colonel", "id": "1176734917263102063"},
-                { "rank_name": "Major", "id": "1176734800103608461"},
-                { "rank_name": "Captain", "id": "345345345345345"}
+                { "rank_name": "Admiral", "id": "1257076084285898793"},
+                { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+                { "rank_name": "Warrant Officer", "id": "1257076886777888858"}
             ],
             "carrier_jump": [
-                { "rank_name": "General Staff", "id": "1173407686797303928"},
-                { "rank_name": "Colonel", "id": "1176734917263102063"},
-                { "rank_name": "Major", "id": "1176734800103608461"}
+                { "rank_name": "Admiral", "id": "1257076084285898793"},
+                { "rank_name": "Flight Leader", "id": "1257076744825868451"},
+                { "rank_name": "Warrant Officer", "id": "1257076886777888858"}
             ],
-            "carrier_jump_room": "ready-room",
+            "carrier_jump_room": "the-void",
             "testServer": {
                 "carrier_jump": [
                     { "rank_name": "General Staff", "id": "961718365603393576"},
