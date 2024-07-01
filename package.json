@@ -1,7 +1,7 @@
 {
-  "name": "warden",
-  "version": "3.0.6",
-  "description": "The Warden Discord Bot powered by Discord.JS to manage and control the AXI Discord Server.",
+  "name": "void3",
+  "version": "1.0.0",
+  "description": "Used in the Void Sentinels Discord",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -60,7 +60,7 @@ async function query(query, values) {
 //! ##############################
 //! #######STARTUP CHECKS#########
 opordChecks()
-carrier_jumpChecks()
+// carrier_jumpChecks()
 // deleteTable('carrier_jump')
 //! ##############################
 //! ##############################

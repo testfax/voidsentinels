@@ -66,10 +66,8 @@ const fs = require('fs');
 const path = require('path')
 const colors = require('colors')
 
-//Warden.bot variables for index.js
-let warden_vars = {};
-//Guardian.bot variables for index.js
-let guardianai_vars = {};
+//Void3 variables for index.js
+let void3_vars = {};
 
 
 // Retrieve hostname so the bot knows where its being launched from.
@@ -100,16 +98,16 @@ function mainOperation(){
 	// Bot Determination
 	// Local Modules determined by bot "active" state.
 	// Specific bots need specific things, load them here.
-	if (botFunc.botIdent().activeBot.botName == 'Warden') {
-	    const leaderboardInteraction = require(`./${botFunc.botIdent().activeBot.botName}/interaction/submission.js`)
-		warden_vars[leaderboardInteraction] = leaderboardInteraction
-		const { query } = require(`./${botFunc.botIdent().activeBot.botName}/db`)
-		warden_vars[query] = query
+	// if (botFunc.botIdent().activeBot.botName == 'Warden') {
+	//     const leaderboardInteraction = require(`./${botFunc.botIdent().activeBot.botName}/interaction/submission.js`)
+	// 	warden_vars[leaderboardInteraction] = leaderboardInteraction
+	// 	const { query } = require(`./${botFunc.botIdent().activeBot.botName}/db`)
+	// 	warden_vars[query] = query
 		
-	}
-	if (botFunc.botIdent().activeBot.botName == 'GuardianAI') {
+	// }
+	if (botFunc.botIdent().activeBot.botName == 'VOID3') {
 		const database = require(`./${botFunc.botIdent().activeBot.botName}/db/database`)
-		guardianai_vars = database
+		void3_vars = database
 		
 	}
 	console.log("[STARTUP]".yellow, `${botFunc.botIdent().activeBot.botName}`.green,"Loading Commands:".magenta,"🕗")
@@ -125,7 +123,7 @@ function mainOperation(){
 		await botFunc.deployCommands(commandsColl,REST,Routes,bot);
 		botFunc.botLog(bot,new EmbedBuilder().setDescription(`💡 ${bot.user.username} online! logged in as ${bot.user.tag}`).setTitle(`${bot.user.username} Online`),0);
 		global.guild = bot.guilds.cache.first()	
-		if (botFunc.botIdent().activeBot.botName == 'GuardianAI') {
+		if (botFunc.botIdent().activeBot.botName == 'VOID3') {
 			// if (process.env.SOCKET_TOKEN) { require('./socket/taskManager.js') }
 			/**
 			* @description Socket Connection - Allows communication between Warden and GuardianAI. Gathers role information for GuardianAI.
@@ -133,71 +131,71 @@ function mainOperation(){
 			
 			//Assigns the ActivityType (status) of the bot with the system name.
 			const currentSystem_sql = 'SELECT starSystem FROM `carrier_jump` ORDER BY id DESC LIMIT 1';
-			const currentSystem_response = await guardianai_vars.query(currentSystem_sql)
+			const currentSystem_response = await void3_vars.query(currentSystem_sql)
 			if (currentSystem_response.length > 0) {
-				let guardianai = await guild.members.fetch({query: botFunc.botIdent().activeBot.botName, limit: 1})
-				guardianai = guardianai.first()
-				guardianai.user.setActivity(`${currentSystem_response[0].starSystem}`, { type: ActivityType.Custom });
+				let void3 = await guild.members.fetch({query: botFunc.botIdent().activeBot.botName, limit: 1})
+				void3 = void3.first()
+				void3.user.setActivity(`${currentSystem_response[0].starSystem}`, { type: ActivityType.Custom })
 			}
 		}
-		if (botFunc.botIdent().activeBot.botName == 'Warden') {
-			// Scheduled Role Backup Task
-			if(process.env.MODE == "PROD") {
-				cron.schedule('*/5 * * * *', function () {
-					backupClubRoles()
-				});
-				/**
-				 * Role backup system, takes the targetted role and table and backs up to SQL database.
-				 * @author  (Mgram) Marcus Ingram @MgramTheDuck
-				 */
-				async function backupClubRoles() {
-					let guilds = bot.guilds.cache.map((guild) => guild);
-					let guild = guilds[0]
-					await guild.members.fetch()
-					let members = guild.roles.cache.get('974673947784269824').members.map(m=>m.user)
-					try {
-						await warden_vars.query(`DELETE FROM club10`)
-					} catch (err) {
-						console.log(`Unable to delete rows from table`)
-						return;
-					}
-					for (let member of members) {
-						let name = await guild.members.cache.get(member.id).nickname
-						await warden_vars.query(`INSERT INTO club10(user_id, name, avatar) VALUES($1,$2,$3)`, [
-							member.id,
-							name,
-							member.avatar
-						])
-					}
-					console.log('Club 10 table updated')
-				}
-				// //the following part handles the triggering of reminders
-				// let minutes = 0.1, the_interval = minutes * 60 * 1000; //this sets at what interval are the reminder due times getting checked
-				// setInterval(async function() {
-				// 	let currentDate = new Date(Date.now());
+		// if (botFunc.botIdent().activeBot.botName == 'Warden') {
+		// 	// Scheduled Role Backup Task
+		// 	if(process.env.MODE == "PROD") {
+		// 		cron.schedule('*/5 * * * *', function () {
+		// 			backupClubRoles()
+		// 		});
+		// 		/**
+		// 		 * Role backup system, takes the targetted role and table and backs up to SQL database.
+		// 		 * @author  (Mgram) Marcus Ingram @MgramTheDuck
+		// 		 */
+		// 		async function backupClubRoles() {
+		// 			let guilds = bot.guilds.cache.map((guild) => guild);
+		// 			let guild = guilds[0]
+		// 			await guild.members.fetch()
+		// 			let members = guild.roles.cache.get('974673947784269824').members.map(m=>m.user)
+		// 			try {
+		// 				await warden_vars.query(`DELETE FROM club10`)
+		// 			} catch (err) {
+		// 				console.log(`Unable to delete rows from table`)
+		// 				return;
+		// 			}
+		// 			for (let member of members) {
+		// 				let name = await guild.members.cache.get(member.id).nickname
+		// 				await warden_vars.query(`INSERT INTO club10(user_id, name, avatar) VALUES($1,$2,$3)`, [
+		// 					member.id,
+		// 					name,
+		// 					member.avatar
+		// 				])
+		// 			}
+		// 			console.log('Club 10 table updated')
+		// 		}
+		// 		// //the following part handles the triggering of reminders
+		// 		// let minutes = 0.1, the_interval = minutes * 60 * 1000; //this sets at what interval are the reminder due times getting checked
+		// 		// setInterval(async function() {
+		// 		// 	let currentDate = new Date(Date.now());
 			
-				// 	let res = await warden_vars.query("SELECT * FROM reminders WHERE duetime < $1", [currentDate]);
+		// 		// 	let res = await warden_vars.query("SELECT * FROM reminders WHERE duetime < $1", [currentDate]);
 			
-				// 	if (res.rowCount == 0) return; //if there are no due reminders, exit the function
+		// 		// 	if (res.rowCount == 0) return; //if there are no due reminders, exit the function
 			
-				// 	for (let row = 0; row < res.rowCount; row++) { //send all
-				// 		const channel = await bot.channels.cache.get(res.rows[row].channelid);
-				// 		channel.send(`<@${res.rows[row].discid}>: ${res.rows[row].memo}`);
-				// 	}
+		// 		// 	for (let row = 0; row < res.rowCount; row++) { //send all
+		// 		// 		const channel = await bot.channels.cache.get(res.rows[row].channelid);
+		// 		// 		channel.send(`<@${res.rows[row].discid}>: ${res.rows[row].memo}`);
+		// 		// 	}
 			
-				// 	try {
-				// 		res = await warden_vars.query("DELETE FROM reminders WHERE duetime < $1", [currentDate]);
-				// 	} catch (err) {
-				// 		console.log(err);
-				// 	}
-				// }, the_interval);
-			}
-			// If socket token is configured, bot will try to run the task manager.
-			// if (process.env.SOCKET_TOKEN) { require('./socket/taskManager.js') }
-			/**
-		 	* @description Socket Connection - Allows communication between Warden and GuardianAI. Gathers role information for GuardianAI.
-		 	*/
-		}
+		// 		// 	try {
+		// 		// 		res = await warden_vars.query("DELETE FROM reminders WHERE duetime < $1", [currentDate]);
+		// 		// 	} catch (err) {
+		// 		// 		console.log(err);
+		// 		// 	}
+		// 		// }, the_interval);
+		// 	}
+		// 	// If socket token is configured, bot will try to run the task manager.
+		// 	// if (process.env.SOCKET_TOKEN) { require('./socket/taskManager.js') }
+		// 	/**
+		//  	* @description Socket Connection - Allows communication between Warden and GuardianAI. Gathers role information for GuardianAI.
+		//  	*/
+		// }
 		console.log("[STARTUP]".yellow,`${botFunc.botIdent().activeBot.botName}`.green,"Bot has Logged In:".magenta,'✅');
 	})
 	// Have the bot login
