@@ -2,6 +2,7 @@ let config = require('./config.json')
 const fs = require("fs")
 const path = require("path")
 const glob = require('glob')
+const fetch = require('node-fetch');
 //This functions.js file serves as a global functions context for all bots that may reuse the same code.
 /**
  * @author (testfax) Medi0cr3 @testfax
@@ -435,6 +436,17 @@ const thisBotFunctions = {
             return member.roles.cache.some(role => roleIdsToCheck.includes(role.id) || roleNamesToCheck.includes(role.name)) ? 1 : 0;
         }
         return false;
+    },
+    fetcher: async (url) => { 
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            // console.log(data);
+            return data
+        } catch (error) {
+            console.error('Error:', error);
+        }
+        return data
     },
     /**
      * Log a discord bot event in the Log Channel
