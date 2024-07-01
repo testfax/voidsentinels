@@ -47,7 +47,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'org_list') {
             try {
-                const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/organization_members/${inputs[0].value}`)
+                const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/auto/organization_members/${inputs[0].value}`)
                 const member_info = []
                 rsi_response.data.forEach(i => { 
                     member_info.push({
@@ -103,7 +103,7 @@ module.exports = {
         }
         if (interaction.options.getSubcommand() === 'citizen') {
             try {
-                const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/user/${inputs[0].value}`)
+                const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/auto/user/${inputs[0].value}`)
     
                 const citizen_info = {
                     "organization": rsi_response.data.organization.name  != null ? rsi_response.data.organization.name : "No Main Org Found",
