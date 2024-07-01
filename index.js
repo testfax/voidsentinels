@@ -114,30 +114,33 @@ function mainOperation(){
 	// Discord client setup
 	const serverIntents = new IntentsBitField(3276799);
 	const bot = new Client({ intents: serverIntents })
+	
 	/**
 	 * Loads command objects from the commands folder
 	 * @author  (testfax) Medi0cr3 @testfax
 	 */
 	let commandsColl = bot.commands = new Collection()
+	
 	bot.on("ready", async() => {
 		await botFunc.deployCommands(commandsColl,REST,Routes,bot);
 		botFunc.botLog(bot,new EmbedBuilder().setDescription(`💡 ${bot.user.username} online! logged in as ${bot.user.tag}`).setTitle(`${bot.user.username} Online`),0);
-		global.guild = bot.guilds.cache.first()	
-		if (botFunc.botIdent().activeBot.botName == 'VOID3') {
-			// if (process.env.SOCKET_TOKEN) { require('./socket/taskManager.js') }
-			/**
-			* @description Socket Connection - Allows communication between Warden and GuardianAI. Gathers role information for GuardianAI.
-			*/
+		global.guild = bot.guilds.cache.first()
+		
+		// if (botFunc.botIdent().activeBot.botName == 'GuardianAI') {
+		// 	// if (process.env.SOCKET_TOKEN) { require('./socket/taskManager.js') }
+		// 	/**
+		// 	* @description Socket Connection - Allows communication between Warden and GuardianAI. Gathers role information for GuardianAI.
+		// 	*/
 			
-			//Assigns the ActivityType (status) of the bot with the system name.
-			const currentSystem_sql = 'SELECT starSystem FROM `carrier_jump` ORDER BY id DESC LIMIT 1';
-			const currentSystem_response = await void3_vars.query(currentSystem_sql)
-			if (currentSystem_response.length > 0) {
-				let void3 = await guild.members.fetch({query: botFunc.botIdent().activeBot.botName, limit: 1})
-				void3 = void3.first()
-				void3.user.setActivity(`${currentSystem_response[0].starSystem}`, { type: ActivityType.Custom })
-			}
-		}
+		// 	//Assigns the ActivityType (status) of the bot with the system name.
+		// 	const currentSystem_sql = 'SELECT starSystem FROM `carrier_jump` ORDER BY id DESC LIMIT 1';
+		// 	const currentSystem_response = await void3_vars.query(currentSystem_sql)
+		// 	if (currentSystem_response.length > 0) {
+		// 		let void3 = await guild.members.fetch({query: botFunc.botIdent().activeBot.botName, limit: 1})
+		// 		void3 = void3.first()
+		// 		void3.user.setActivity(`${currentSystem_response[0].starSystem}`, { type: ActivityType.Custom })
+		// 	}
+		// }
 		// if (botFunc.botIdent().activeBot.botName == 'Warden') {
 		// 	// Scheduled Role Backup Task
 		// 	if(process.env.MODE == "PROD") {

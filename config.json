@@ -140,39 +140,13 @@
             "env": "VOID3.env",
             "active": false,
             "botName": "VOID3",
-            "icon": "",
+            "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSssto-aNwD09CyaI-ZnVu8R0zx0LuCgFokfw&s",
             "communityName": "Void Sentinels",
             "inaraAppName":"none",
             "useGlobalCommands": [],
-            "ignoreCommands": ["sheriff","reminder"],
-            "socketConfig": {
-                "id":"VOID3-socket"
-            }
-        },
-        {
-            "env": "Warden.env",
-            "active": false,
-            "botName": "Warden",
-            "icon": "https://axicloud.blob.core.windows.net/public/images/AXI_Insignia_Hypen_512.png",
-            "communityName": "Anti-Xeno Initiative",
-            "inaraAppName":"AXIWarden",
-            "useGlobalCommands": [],
-            "ignoreCommands": ["sheriff","reminder"],
-            "socketConfig": {
-                "id":"AXI-guardianAI"
-            }
-        },
-        {
-            "env": "GuardianAI.env",
-            "active": false,
-            "botName": "GuardianAI",
-            "icon": "https://xenostrikeforce.com/wp-content/uploads/2023/11/XSF_Logo_Large_Final-1024x1024.png",
-            "communityName": "Xeno Strike Force",
-            "inaraAppName":"GuardianAI",
-            "useGlobalCommands": ["Warden.interceptorcards","Warden.ax-info","Warden.wiki","Warden.math","Warden.common","Warden.inara"],
             "ignoreCommands": [],
             "socketConfig": {
-                "id":"AXI-guardianAI"
+                "id":"VOID3-socket"
             }
         }
     ]

@@ -1,6 +1,6 @@
 const { generateDateTime, botLog, botIdent } = require('../functions')
 const Discord = require('discord.js')
-const database = require('../GuardianAI/db/database')
+const database = require(`../${botIdent().activeBot.botName}/db/database`)
 const config = require('../config.json')
 const exp = {
     messageDelete: async (message, bot) => {
