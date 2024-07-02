@@ -20,6 +20,7 @@ const exp = {
         //         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
         //     }
         // }
+        
         if (interaction.isAutocomplete()) {
             const command = interaction.client.commands.get(interaction.commandName)
 

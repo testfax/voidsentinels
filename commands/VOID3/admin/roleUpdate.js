@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const { botIdent, fetcher, hasSpecifiedRole } = require('../../../functions');
 const config = require('../../../config.json');
-const { spec } = require("node:test/reporters");
+
 
 //Allow changes to ranks
 let evaluateRolesStatus = 0
@@ -38,8 +38,7 @@ module.exports = {
             await interaction.editReply({ content: `You do not have the roles to view this Command. Contact ${approvalRanks_string}`, ephemeral: true });
             return
         }
-        
-        
+
         // const member_channel = interaction.guild.channels.cache.get(config[botIdent().activeBot.botName].roleupdate.members_channel_test)
             
         // const lastMessage = await member_channel.messages.fetch({ limit: 1 })
@@ -151,63 +150,47 @@ module.exports = {
                     // console.log("-------------")
                 }
             })
-            // ✔️     ❌   ⌛
-            function addMembers(newEmbed,RankOrder) {
-                // console.log(sorted_discord_users)
-                sorted_discord_users.forEach(member => {
-                    let userEmoji = null;
-                    if (!member.badName) {
-                        thisRank('Admiral',sorted_discord_users)
-                        // newEmbed.addFields(
-                        //     { name: `${rankOrder[0]}`, value: thisRank(`${rankOrder[0]}`,sorted_discord_users) },
-                            
-                        // )
-                        return newEmbed
-                        // userEmoji =+ userEmoji  
-                        
-                        // newEmbed.addFields(
-                        //     { name: member.memberDisplayName, value: member }
-                        // )
-                    }
-                })
-            }
+            sorted_discord_users.forEach(user => {
+                if (user.org_citizen && user.org_citizen.citizen_handle) {
+                  user.org_citizen.citizen_handle = `${user.isSentinel ? ':white_check_mark:' : ':x:'} ${user.org_citizen.citizen_handle}`;
+                }
+            });
+            function thisRank(specified_rank,sorted_discord_users) {
+                const byRankArray = sorted_discord_users
+                    .filter(user => user.org_citizen?.rank === specified_rank && user.badName != true)
+                    .map(member => member.org_citizen.citizen_handle)
+                const string = byRankArray.join(",").replace(/,/g, "\n")
+                const final = string.length > 0 ? string : "\u0020"
 
+                return final
+            }
+            function discrepant_discord_users(personnel) {
+                personnel = personnel.map(i => `❌ \u200b ${i}`);
+                personnel.push('Unverified Sentinels should ensure thier discord name matches their Star Citizen name and that Organization Membership is set to Visible. Type </verify:1257732436100382832>')
+                const string = personnel.join(",").replace(/,/g, "\n")
+                const final = string.length > 0 ? string : "\u0020"
+                return final
+            }
+            function addMembers(newEmbed,RankOrder) {
+                rankOrder.forEach(rank => {
+                    newEmbed.addFields({ name: `ᐅ ${rank}`, value: thisRank(rank,sorted_discord_users) })
+                })
+                newEmbed.addFields(
+                    { name: "Unverified Users", value: discrepant_discord_users(discrepant_discord) }
+                )
+                return newEmbed
+            }
             let returnEmbed = new Discord.EmbedBuilder()
             .setTitle(`${botIdent().activeBot.communityName}`)
             .setAuthor({name: botIdent().activeBot.botName,iconURL: botIdent().activeBot.icon})
             .setThumbnail(botIdent().activeBot.icon)
-            .setDescription("DERP")
-            console.log(sorted_discord_users)
+            .setDescription("Verified Void Sentinels have full discord access.")
 
-            function thisRank(specified_rank,sorted_discord_users) {
-                // const array = sorted_discord_users
-                //     .filter(i => i.rank === specified_rank)
-                //     .map(member => member.citizen_handle)
-                // console.log(array)
-                // const string = array.join(",").replace(/,/g, "\n")
-                // const final = string.length > 0 ? string : "\u0020"
-                // console.log("HIT:",specified_rank,final);
-                const officers = sorted_discord_users.filter(user => {
-                    console.log('Checking user:', user.memberDisplayName, 'with rank:', user.org_citizen.rank);
-                    return user.org_citizen.rank === specified_rank;
-                });
-                console.log(officers)
-                const filteredHandles = officers.map(user => user.org_citizen.citizen_handle);
-                console.log(filteredHandles)
-                return filteredHandles
-            }
-
-            // returnEmbed.addFields(
-            //     { name: `${rankOrder[0]}`, value: thisRank(`${rankOrder[0]}`,sorted_members) },
-            //     { name: `${rankOrder[1]}`, value: thisRank(`${rankOrder[1]}`,sorted_members) },
-            //     { name: `${rankOrder[2]}`, value: thisRank(`${rankOrder[2]}`,sorted_members) },
-            //     { name: `${rankOrder[3]}`, value: thisRank(`${rankOrder[3]}`,sorted_members) },
-            //     { name: `${rankOrder[4]}`, value: thisRank(`${rankOrder[4]}`,sorted_members) },
-            //     { name: `${rankOrder[5]}`, value: thisRank(`${rankOrder[5]}`,sorted_members) }    
-            // )
+            
             const member_channel = interaction.guild.channels.cache.get(config[botIdent().activeBot.botName].roleupdate.members_channel_test)
             const lastMessage = await member_channel.messages.fetch({ limit: 1 })
             if (lastMessage.size == 0) { 
+                addMembers(returnEmbed,rankOrder);
                 await member_channel.send({ embeds: [returnEmbed.setTimestamp()] })
             }
             if (lastMessage.size > 0) { 
@@ -236,7 +219,7 @@ module.exports = {
                     await lastMessage.last().edit({ embeds: [editedEmbed] })
             }
             
-            interaction.editReply({ embeds: [returnEmbed] });
+            interaction.editReply({ content: 'Void Sentinels Discord updated with roles set on the RSI Website.' });
         }
         catch (e) {
             console.log(e)

@@ -471,9 +471,9 @@ const thisBotFunctions = {
 		.setTimestamp()
 		.setFooter({ text: `${thisBotFunctions.botIdent().activeBot.botName}  Logs`, iconURL: thisBotFunctions.botIdent().activeBot.icon });
 		try {
-            await bot.channels.cache.get(process.env.LOGCHANNEL).send({ embeds: [embed], })
+            await bot.channels.cache.get(thisBotFunctions.botIdent().activeBot.logsChannel).send({ embeds: [embed], })
 		} catch {
-			console.error("ERROR: No Log Channel Environment Variable Found, Logging will not work. OR your bot permissions are not high enough.")
+			console.error("ERROR: No Log Channel configuration Found, Logging will not work. OR your bot permissions are not high enough.")
 		}
 	},
     getSortedRoleIDs: (message) => {

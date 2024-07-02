@@ -13,6 +13,7 @@ const dbConfig = {
     enableKeepAlive: true,
     charset: 'utf8mb4'
 };
+
 const testdbConfig = {
     host: process.env.DATABASE_URL,
     user: process.env.DATABASE_TESTUSER,
@@ -59,9 +60,10 @@ async function query(query, values) {
 //! ##############################
 //! ##############################
 //! #######STARTUP CHECKS#########
-// opordChecks()
+opordChecks()
+verifications()
 // carrier_jumpChecks()
-// deleteTable('carrier_jump')
+// deleteTable('verifications')
 //! ##############################
 //! ##############################
 //! ##############################
@@ -83,6 +85,32 @@ function deleteTable(table) {
 }
 
 // Check if the table exists
+async function verifications() {
+    try {
+        const table_sql = `SELECT 1 FROM information_schema.tables WHERE table_name = ? LIMIT 1`;
+        const table_values = ['verifications']
+        const table_result = await query(table_sql, table_values)
+        if (table_result.length == 0) {
+            const table_create_values = ['0']
+            const table_create_sql = `
+                CREATE TABLE verifications (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    unix varchar(255),
+                    code VARCHAR(255),
+                    userId VARCHAR(255),
+                    recruiterId VARCHAR(255)
+                );
+            `;
+            const response = await query(table_create_sql,table_create_values)
+            if (response) {
+                console.log("[STARTUP]".yellow, `${botIdent().activeBot.botName}`.green, "Creating Verifications Table:".magenta, '✅');
+            }
+        }
+    } catch (e) {
+        console.error("[STARTUP]".yellow, `${botIdent().activeBot.botName}`.green, "Creating Verifications Table Fail:".magenta, '❌');
+        console.error(e);
+    }
+}
 async function opordChecks() {
     try {
         const opord_table_sql = `SELECT 1 FROM information_schema.tables WHERE table_name = ? LIMIT 1`;
@@ -94,14 +122,14 @@ async function opordChecks() {
                 CREATE TABLE opord (
                     id INT AUTO_INCREMENT PRIMARY KEY,
                     unix varchar(255),
-                    opord_number INT DEFAULT 0,
+                    opord_number INT,
                     approved_message_id VARCHAR(255),
                     await_message_id VARCHAR(255),
                     event_id VARCHAR(255),
                     creator JSON,
-                    participant_lock INT DEFAULT 0,
-                    participant_uniform TEXT DEFAULT 0,
-                    participant_players TEXT DEFAULT 0,
+                    participant_lock INT,
+                    participant_uniform TEXT,
+                    participant_players TEXT,
                     operation_name VARCHAR(255),
                     mission_statement TEXT,
                     meetup_location TEXT,

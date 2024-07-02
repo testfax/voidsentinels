@@ -62,6 +62,9 @@
             ]
         },
         "general_stuff": {
+            "sendVerificationCode": [
+                { "rank_name": "Recruiter", "id": "1257842006927999106"}
+            ],
             "evaluateRoles_authorized": [
                 { "rank_name": "Admiral", "id": "1257076084285898793"},
                 { "rank_name": "Flight Leader", "id": "1257076744825868451"}
@@ -150,6 +153,7 @@
             "botName": "VOID3",
             "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSssto-aNwD09CyaI-ZnVu8R0zx0LuCgFokfw&s",
             "communityName": "Void Sentinels",
+            "logsChannel": "1257055917170491554",
             "inaraAppName":"none",
             "useGlobalCommands": [],
             "ignoreCommands": [],
