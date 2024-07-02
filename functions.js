@@ -441,8 +441,7 @@ const thisBotFunctions = {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            if (data.success) { return data }
-            if (!data.success) { return false }
+            return data
             
         } catch (error) {
             console.error('Error:', error);

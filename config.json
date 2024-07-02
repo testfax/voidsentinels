@@ -54,15 +54,20 @@
             { "rank_name": "Corporal", "id": "1257077147529642086"},
             { "rank_name": "Private", "id": "1257077276634251386"}
         ],
+        "roleupdate": {
+            "members_channel": "1257441969592995870",
+            "members_channel_test": "1257511578677542922",
+            "roleupdate_authRanks": [
+                { "rank_name": "Admiral", "id": "1257076084285898793"}
+            ]
+        },
         "general_stuff": {
             "evaluateRoles_authorized": [
                 { "rank_name": "Admiral", "id": "1257076084285898793"},
                 { "rank_name": "Flight Leader", "id": "1257076744825868451"}
             ],
             "onboarding_roles": [
-                { "rank_name": "Decent Pilot", "id": "1173407248161198230"},
-                { "rank_name": "Pilot", "id": "1173406969453887528"},
-                { "rank_name": "Collector", "id": "1173407165126549668"}
+                { "rank_name": "Sentinel", "id": "1257072906651832413"}
             ],
             "onboarding_roles_dividers": [
                 { "rank_name": "officers", "id": "1257395340710252615"},
@@ -141,7 +146,7 @@
     "botTypes": [
         {
             "env": "VOID3.env",
-            "active": false,
+            "active": true,
             "botName": "VOID3",
             "icon": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSssto-aNwD09CyaI-ZnVu8R0zx0LuCgFokfw&s",
             "communityName": "Void Sentinels",

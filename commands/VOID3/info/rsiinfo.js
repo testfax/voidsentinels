@@ -40,14 +40,14 @@ module.exports = {
             botLog(interaction.guild,new Discord.EmbedBuilder()
             .setDescription(`${interaction.member.nickname} does not have access. Requires ${approvalRanks_string}`)
             .setTitle(`/rsiinfo ${interaction.options.getSubcommand()}`)
-            ,2
+            ,
             )
-            await interaction.editReply({ content: `You do not have the roles to add to the participation tracker. Contact ${approvalRanks_string}`, ephemeral: true });
+            await interaction.editReply({ content: `You do not have the roles to view this Command. Contact ${approvalRanks_string}`, ephemeral: true });
             return
         }
         if (interaction.options.getSubcommand() === 'org_list') {
+            const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/auto/organization_members/${inputs[0].value}`)
             try {
-                const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/auto/organization_members/${inputs[0].value}`)
                 const member_info = []
                 rsi_response.data.forEach(i => { 
                     member_info.push({
@@ -95,6 +95,9 @@ module.exports = {
                 .setAuthor({name: botIdent().activeBot.botName,iconURL: botIdent().activeBot.icon})
                 .setThumbnail(botIdent().activeBot.icon)
                 .setDescription("starcitizen-api.com ERROR")
+                .addFields(
+                    { name: 'Message:', value: rsi_response.message }
+                )
                 
                 const buttonRow = new Discord.ActionRowBuilder()
                 .addComponents(new Discord.ButtonBuilder().setLabel('Show on RSI Website').setStyle(Discord.ButtonStyle.Link).setURL(`https://robertsspaceindustries.com/orgs/${inputs[0].value}/members`),)
@@ -102,8 +105,8 @@ module.exports = {
             }
         }
         if (interaction.options.getSubcommand() === 'citizen') {
+            const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/auto/user/${inputs[0].value}`)
             try {
-                const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/auto/user/${inputs[0].value}`)
     
                 const citizen_info = {
                     "organization": rsi_response.data.organization.name  != null ? rsi_response.data.organization.name : "No Main Org Found",
@@ -135,12 +138,14 @@ module.exports = {
                 .setAuthor({name: botIdent().activeBot.botName,iconURL: botIdent().activeBot.icon})
                 .setThumbnail(botIdent().activeBot.icon)
                 .setDescription("starcitizen-api.com ERROR")
+                .addFields(
+                    { name: 'Message:', value: rsi_response.message }
+                )
                 
                 const buttonRow = new Discord.ActionRowBuilder()
                 .addComponents(new Discord.ButtonBuilder().setLabel('Show on RSI Website').setStyle(Discord.ButtonStyle.Link).setURL(`https://robertsspaceindustries.com/citizens/${inputs[0].value}`),)
                 interaction.editReply({ embeds: [returnEmbed.setTimestamp()], components: [buttonRow] });
             }
         }
-        
     }
 }
