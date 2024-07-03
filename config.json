@@ -58,7 +58,13 @@
             "members_channel": "1257441969592995870",
             "members_channel_test": "1257511578677542922",
             "roleupdate_authRanks": [
-                { "rank_name": "Admiral", "id": "1257076084285898793"}
+                { "rank_name": "Administrator", "id": "1257061998563295454"}
+            ],
+            "org_roles": [
+                { "rank_name": "General", "id": "1257845371355533364"},
+                { "rank_name": "Officer", "id": "1257845293068718091"},
+                { "rank_name": "Recruiter", "id": "1257842006927999106"},
+                { "rank_name": "Marketing", "id": "1257845438434906182"}
             ]
         },
         "general_stuff": {
@@ -70,7 +76,8 @@
                 { "rank_name": "Flight Leader", "id": "1257076744825868451"}
             ],
             "onboarding_roles": [
-                { "rank_name": "Sentinel", "id": "1257072906651832413"}
+                { "rank_name": "Sentinel", "id": "1257072906651832413"},
+                { "rank_name": "Guest", "id": "1258186815110910022"}
             ],
             "onboarding_roles_dividers": [
                 { "rank_name": "officers", "id": "1257395340710252615"},
@@ -142,7 +149,138 @@
                     { "rank_name": "skillranks", "id": "1234318538605465700"},
                     { "rank_name": "earnedRanks", "id": "1234318724161339412"},
                     { "rank_name": "activityranks", "id": "1234347324415676498"}
-                ]
+                ],
+                "testOrg": {
+                    "data": [
+                      {
+                        "display": "Javalina",
+                        "handle": "Javalina",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Admiral",
+                        "roles": [
+                          "General",
+                          "Officer",
+                          "Recruiter",
+                          "Marketing"
+                        ],
+                        "stars": 5
+                      },
+                      {
+                        "display": "Spartacus61",
+                        "handle": "Spartacus61",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Warrant Officer",
+                        "roles": [
+                          "Officer",
+                          "Recruiter",
+                          "Marketing"
+                        ],
+                        "stars": 3
+                      },
+                      {
+                        "display": "Lewtonious",
+                        "handle": "Lewtonious",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Corporal",
+                        "roles": [
+                          "Recruiter"
+                        ],
+                        "stars": 1
+                      },
+                      {
+                        "display": "TheBlindMailman",
+                        "handle": "TheBlindMailman",
+                        "image": "https://robertsspaceindustries.com",
+                        "rank": "Private",
+                        "roles": [],
+                        "stars": 0
+                      },
+                      {
+                        "display": "Badhaks",
+                        "handle": "Kapn0",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Flight Leader",
+                        "roles": [
+                          "Officer",
+                          "Recruiter",
+                          "Marketing"
+                        ],
+                        "stars": 4
+                      },
+                      {
+                        "display": "Endsoldier",
+                        "handle": "Endsoldier",
+                        "image": "https://robertsspaceindustries.com/media/9ssqvs3n5073er/avatar/Fall-Red.png",
+                        "rank": "Corporal",
+                        "roles": [
+                          "Recruiter"
+                        ],
+                        "stars": 1
+                      },
+                      {
+                        "display": "Trench",
+                        "handle": "TrenchcoatDanny",
+                        "image": "https://robertsspaceindustries.com/media/yvq1g3z9i73dmr/avatar/Screenshot-2021-11-30-At-23-00-35-Red-Chaos-Symbol-Google-Search.png",
+                        "rank": "Corporal",
+                        "roles": [
+                          "Recruiter",
+                          "Marketing"
+                        ],
+                        "stars": 1
+                      },
+                      {
+                        "display": "SublimeDruid",
+                        "handle": "SublimeDruid",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Flight Leader",
+                        "roles": [
+                          "Officer",
+                          "Recruiter",
+                          "Marketing"
+                        ],
+                        "stars": 4
+                      },
+                      {
+                        "display": "NateJST",
+                        "handle": "NateJST",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Corporal",
+                        "roles": [
+                          "Recruiter"
+                        ],
+                        "stars": 1
+                      },
+                      {
+                        "display": "Medi0cr3",
+                        "handle": "Medi0cr3",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Admiral",
+                        "roles": [
+                          "General",
+                          "Officer",
+                          "Recruiter",
+                          "Marketing"
+                        ],
+                        "stars": 5
+                      },
+                      {
+                        "display": "Titan33m",
+                        "handle": "Titan33m",
+                        "image": "https://cdn.robertsspaceindustries.com/static/images/account/avatar_default_big.jpg",
+                        "rank": "Admiral",
+                        "roles": [
+                          "General",
+                          "Officer",
+                          "Recruiter",
+                          "Marketing"
+                        ],
+                        "stars": 5
+                      }
+                    ],
+                    "message": "ok",
+                    "source": "live",
+                    "success": 1
+                  }
             }
         }
     },

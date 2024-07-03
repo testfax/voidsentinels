@@ -1,17 +1,14 @@
 const Discord = require("discord.js");
-const { botIdent, fetcher, hasSpecifiedRole } = require('../../../functions');
+const { botLog, botIdent, fetcher, hasSpecifiedRole } = require('../../../functions');
 const config = require('../../../config.json');
 
 
 //Allow changes to ranks
-let evaluateRolesStatus = 0
+let evaluateRolesStatus = 1
 function checker(memberroles, rolesToCheck,type) {
     let found = null
     let containsAllRoles = null;
-    if (type == 'Sentinel') { 
-        containsAllRoles = rolesToCheck.some(role => memberroles.includes(role))
-    }
-    if (type == 'officerRanks') { 
+    if (type == 'Sentinels') { 
         containsAllRoles = rolesToCheck.some(role => memberroles.includes(role))
     }
     found = containsAllRoles ? found = containsAllRoles : found = false
@@ -30,10 +27,13 @@ module.exports = {
         const approvalRanks = config[botIdent().activeBot.botName].roleupdate.roleupdate_authRanks
         const approvalRanks_string = approvalRanks.map(rank => rank.rank_name).join(', ').replace(/,([^,]*)$/, ', or$1');
         if (hasSpecifiedRole(member, approvalRanks) == 0) {
-            botLog(interaction.guild,new Discord.EmbedBuilder()
-            .setDescription(`${interaction.member.nickname} does not have access. Requires ${approvalRanks_string}`)
-            .setTitle(`/roleupdate`)
-            ,
+            botLog(
+                interaction.guild,
+                new Discord.EmbedBuilder()
+                    .setDescription(`<@${member.id}> does not have access. Requires ${approvalRanks_string}`)
+                    .setTitle(`/roleupdate`)
+                ,
+                2
             )
             await interaction.editReply({ content: `You do not have the roles to view this Command. Contact ${approvalRanks_string}`, ephemeral: true });
             return
@@ -51,17 +51,21 @@ module.exports = {
         //     console.log(lastMessage.last().author.username)
         // }
 
-        const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/organization_members/V0ID3`)
+        // const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/organization_members/V0ID3`)
+        const rsi_response = config[botIdent().activeBot.botName].general_stuff.testServer.testOrg
         try {
             const member_info = []
             rsi_response.data.forEach(i => { 
                 member_info.push({
                     "citizen_handle": i.handle,
                     "citizen_display": i.display,
-                    "rank": i.rank
+                    "rank": i.rank,
+                    "roles": i.roles
                 })
             })
-            const rankOrder = config.VOID3.general_stuff.allRanks.map(rank => rank.rank_name)
+            const rankOrder = config[botIdent().activeBot.botName].general_stuff.allRanks.map(rank => rank.rank_name)
+            
+
             const sorted_members = member_info.sort((a, b) => {
                 const rankComparison = rankOrder.indexOf(a.rank) - rankOrder.indexOf(b.rank);
                 if (rankComparison !== 0) {
@@ -74,6 +78,9 @@ module.exports = {
             const roles = roleMap.map(id => id.id)
             const allRolesMap = config[botIdent().activeBot.botName].general_stuff.allRanks
             const allRoles = allRolesMap.map(id => id.id)
+            const orgRolesMap = config[botIdent().activeBot.botName].roleupdate.org_roles
+            const orgRoles = orgRolesMap.map(id => id.id)
+            const org_removalRoles = allRoles.concat(orgRoles)
 
             let discrepant_discord = []
             let sorted_discord_users = []
@@ -84,72 +91,88 @@ module.exports = {
                     discrepant_discord.push(member.citizen_handle)
                 }
             })
-            // console.log(discrepant_discord)
 
-            interaction.guild.members.cache.each(async member => {
+            const promises = interaction.guild.members.cache.map(async member => {
                 if (!member.user.bot) {
-                    // console.log("memberDisplayName:",member.displayName)
-                    // console.log("memberID:",member.id)
-                    // console.log("member roles:",member._roles)
-                    // console.log("roles to check:",roles)
+                    if (!evaluateRolesStatus) { console.log("memberDisplayName:",member.displayName) }
                     // //!Makes a list of people who dont have Sentinel in their roles.
                     let isSentinel = checker(member._roles,roles,'Sentinel')
-                    let isOfficerRanks = checker(member._roles,allRoles,'officerRanks')
+                    // let isOfficerRanks = checker(member._roles,allRoles,'officerRanks')
+                    // let isOrgRoles = checker(member._roles,orgRoles,'isOrgRoles')
                     let org_cit_rank = null;
+                    let org_cit_rolesMap = null;
+                    let org_cit_roleIds = null;
                     const badName = !sorted_members.find(i=>i.citizen_handle === member.displayName)
-                    //!Makes a list of people 
-                    
-                    // console.log("TEST: isSentinel",isSentinel)
-                    // console.log("TEST: isOfficerRanks",isOfficerRanks)
-                    // console.log("Org Citizen Name:", sorted_members.find(i=>i.citizen_handle === member.displayName))
-                    // console.log("BadName/NotInDiscord:", badName)
-                    // console.log("++++++++++++++++++")
-
+                    //!Makes a list of people
+                    if (!evaluateRolesStatus) {
+                        console.log("TEST: isSentinel",isSentinel)
+                        console.log("Org Citizen Name:", sorted_members.find(i=>i.citizen_handle === member.displayName))
+                        console.log("BadName/NotInDiscord:", badName)
+                        console.log("++++++++++++++++++")
+                    }
 
                     if (badName != true && sorted_members.find(i=>i.citizen_handle === member.displayName)) {
                         org_cit_rank = sorted_members.find(i=>i.citizen_handle === member.displayName).rank
+                        org_cit_rolesMap = sorted_members.find(i=>i.citizen_handle === member.displayName).roles
+                        org_cit_roleIds = org_cit_rolesMap.map(roleName => {
+                            const role = orgRolesMap.find(role => role.rank_name === roleName);
+                            return role ? role.id : null;
+                        });
                     }
-                    if (!sorted_members.find(i=>i.citizen_handle === member.displayName)) {
+                    if (badName) {
                         //!Discord nickname does not match Citizen Handle
                         //Remove all roles from user that is not in the Org
                         // const discrepant_user = sorted_discord_users.find(i => i.memberDisplayName === member.displayName)
                         if (evaluateRolesStatus) { await member.roles.set([]) }
+                        else { console.log("❌ Discord nickname does not match Citizen Handle")}
                     }
-
+                    
+                    if (isSentinel == true && badName != true && org_cit_rank != null) {
+                        if (evaluateRolesStatus) {
+                            await member.roles.remove(org_removalRoles)
+                            await member.roles.add(
+                                org_cit_roleIds.concat(
+                                    allRolesMap.find(i => i.rank_name == org_cit_rank).id
+                                )
+                            )
+                        }
+                        else { console.log("✔️ Updated Officer & Org Roles") }
+                    }
                     if (isSentinel == false && badName != true && org_cit_rank != null) {
-                        if (isOfficerRanks == false) {
-                            //Has Sentinel, but no officer ranks, give appropriate rank
-                            if (evaluateRolesStatus) { await member.roles.add(allRolesMap.find(i => i.rank_name == org_cit_rank).id) }
-                            // console.log("✔️ Promoted to:",org_cit_rank)
+                        isSentinel = true
+                        //Assign all roles discovered
+                        if (evaluateRolesStatus) {
+                            await member.roles.remove(org_removalRoles.concat(roleMap.find(i => i.rank_name == 'Guest').id),roleMap.find(i => i.rank_name == 'Sentinels').id)
+                            await member.roles.add(
+                                org_cit_roleIds.concat(
+                                    allRolesMap.find(i => i.rank_name == org_cit_rank).id,
+                                    roleMap.find(i => i.rank_name == 'Sentinels').id
+                                )
+                            )
                         }
-                        //Assign Sentinel, because they are in the Org, but dont have the role.
-                        if (evaluateRolesStatus) { await member.roles.add(roleMap.find(i => i.rank_name == 'Sentinel').id) }
-                        // console.log("✔️ Assigned Sentinel")
-                    }
-                    if (isSentinel == true && isOfficerRanks == true && badName != false && org_cit_rank != null) {
-                        if (evaluateRolesStatus) { 
-                            await member.roles.remove(allRoles)
-                            await member.roles.add(allRolesMap.find(i => i.rank_name == org_cit_rank).id) 
+                        else { 
+                            console.log("✔️ Assigned Sentinels")
+                            console.log("✔️ Promoted to:",org_cit_rank)
+                            console.log("✔️ Assigned Org Roles:",org_cit_rolesMap)
                         }
-                        // console.log("✔️ Updated Officer Roles")
                     }
-                    if (isSentinel == true && isOfficerRanks == false && badName != false && org_cit_rank != null) {
-                        if (evaluateRolesStatus) { await member.roles.add(allRolesMap.find(i => i.rank_name == org_cit_rank.rank).id) }
-                        // console.log("✔️ Promoted to:",org_cit_rank.rank)
+                    
+                    if (evaluateRolesStatus) { 
+                        await member.roles.add(config[botIdent().activeBot.botName].general_stuff.onboarding_roles_dividers.map(i => i.id) ) 
                     }
-                    if (evaluateRolesStatus) { await member.roles.add(config[botIdent().activeBot.botName].general_stuff.onboarding_roles_dividers.map(i => i.id) ) }
-                    // console.log("✔️ Dividers Assigned")
-
+                    else { console.log("✔️ Dividers Assigned");console.log("-------------") }
+                    
                     sorted_discord_users.push({
                         "memberDisplayName": member.displayName,
-                        "isSentinel": isSentinel,
-                        "isOfficerRanks": isOfficerRanks,
+                        "isSentinels": isSentinel,
                         "org_citizen": sorted_members.find(i=>i.citizen_handle === member.displayName),
                         "badName": badName
                     })
-                    // console.log("-------------")
+                    console.log(sorted_discord_users.length)
                 }
             })
+            await Promise.all(promises);
+
             sorted_discord_users.forEach(user => {
                 if (user.org_citizen && user.org_citizen.citizen_handle) {
                   user.org_citizen.citizen_handle = `${user.isSentinel ? ':white_check_mark:' : ':x:'} ${user.org_citizen.citizen_handle}`;
@@ -187,17 +210,17 @@ module.exports = {
             .setDescription("Verified Void Sentinels have full discord access.")
 
             
-            const member_channel = interaction.guild.channels.cache.get(config[botIdent().activeBot.botName].roleupdate.members_channel_test)
-            const lastMessage = await member_channel.messages.fetch({ limit: 1 })
+            const member_channel = interaction.guild.channels.cache.get(config[botIdent().activeBot.botName].roleupdate.members_channel)
+            const lastMessage = await member_channel.messages.fetch({after: '0', limit: 1 })
             if (lastMessage.size == 0) { 
                 addMembers(returnEmbed,rankOrder);
                 await member_channel.send({ embeds: [returnEmbed.setTimestamp()] })
             }
             if (lastMessage.size > 0) { 
-                const receivedEmbed = lastMessage.last().embeds[0]
+                const receivedEmbed = lastMessage.first().embeds[0]
                 const oldEmbedSchema = {
                     title: receivedEmbed.title,
-                    author: { name: lastMessage.last().author.username, iconURL: lastMessage.last().author.displayAvatarURL({ dynamic: true }) },
+                    author: { name: lastMessage.first().author.username, iconURL: lastMessage.first().author.displayAvatarURL({ dynamic: true }) },
                     description: receivedEmbed.description,
                     fields: receivedEmbed.fields,
                     color: receivedEmbed.color
@@ -216,7 +239,7 @@ module.exports = {
 
                     //todo Add members with appropriate roles evaluations
                     const editedEmbed = Discord.EmbedBuilder.from(newEmbed)
-                    await lastMessage.last().edit({ embeds: [editedEmbed] })
+                    await lastMessage.first().edit({ embeds: [editedEmbed] })
             }
             
             interaction.editReply({ content: 'Void Sentinels Discord updated with roles set on the RSI Website.' });

@@ -1,9 +1,4 @@
 const Discord = require("discord.js");
-// const Redis = require('ioredis');
-// const redis = new Redis({
-//   port: 6379,
-//   host: '127.0.0.1',
-// });
 const uuid = require("uuid")
 const { botLog, botIdent, hasSpecifiedRole } = require('../../../functions');
 const config = require('../../../config.json');
@@ -44,7 +39,7 @@ module.exports = {
         const verificationCode = randomUUID()
         const unixTimestamp = Math.floor(Date.now() / 1000)
 
-        
+
         let returnEmbed = new Discord.EmbedBuilder()
             .setTitle(`${botIdent().activeBot.communityName} Verification`)
             .setColor('#f5bf42')
@@ -81,7 +76,7 @@ module.exports = {
             await database.query(update_sql, update_values)
         }
         //Send Verification Embed in a DM to user.
-        await interaction.user.send({ embeds: [returnEmbed] })
+        await interaction.targetUser.send({ embeds: [returnEmbed] })
         await interaction.editReply({
             content: `Verification Code Sent to <@${interaction.targetUser.id}>`
         })
