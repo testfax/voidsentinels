@@ -137,8 +137,8 @@ module.exports = {
             if (foundVerifCode) {
                 //Call org API
                 try {
-                    // const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/organization_members/V0ID3`)
-                    const rsi_response = config[botIdent().activeBot.botName].general_stuff.testServer.testOrg
+                    const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/organization_members/V0ID3`)
+                    // const rsi_response = config[botIdent().activeBot.botName].general_stuff.testServer.testOrg
 
                     //Update Discord
                     try {

@@ -51,8 +51,8 @@ module.exports = {
         //     console.log(lastMessage.last().author.username)
         // }
 
-        // const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/organization_members/V0ID3`)
-        const rsi_response = config[botIdent().activeBot.botName].general_stuff.testServer.testOrg
+        const rsi_response = await fetcher(`https://api.starcitizen-api.com/p9aHTOTpStpQGYFYUJmRaj1l6QmbZHGI/v1/live/organization_members/V0ID3`)
+        // const rsi_response = config[botIdent().activeBot.botName].general_stuff.testServer.testOrg
         try {
             const member_info = []
             rsi_response.data.forEach(i => { 
