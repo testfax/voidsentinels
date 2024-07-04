@@ -57,7 +57,7 @@ let type = null;
  */
 
 // Imported Modules
-const { Client, IntentsBitField, EmbedBuilder, Collection, ActivityType } = require("discord.js")
+const { Client, IntentsBitField, EmbedBuilder, Collection, ActivityType, Partials } = require("discord.js")
 const { REST } = require('@discordjs/rest')
 const { Routes } = require('discord-api-types/v9')
 const botFunc = require('./functions.js')
@@ -113,7 +113,7 @@ function mainOperation(){
 	console.log("[STARTUP]".yellow, `${botFunc.botIdent().activeBot.botName}`.green,"Loading Commands:".magenta,"🕗")
 	// Discord client setup
 	const serverIntents = new IntentsBitField(3276799);
-	const bot = new Client({ intents: serverIntents })
+	const bot = new Client({ intents: serverIntents, partials: [Partials.Message, Partials.Channel, Partials.Reaction] })
 	
 	/**
 	 * Loads command objects from the commands folder
@@ -201,6 +201,7 @@ function mainOperation(){
 		// }
 		console.log("[STARTUP]".yellow,`${botFunc.botIdent().activeBot.botName}`.green,"Bot has Logged In:".magenta,'✅');
 	})
+
 	// Have the bot login
 	function checkENV(item) {
 		if (item) { return item}

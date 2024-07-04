@@ -76,8 +76,8 @@
                 { "rank_name": "Flight Leader", "id": "1257076744825868451"}
             ],
             "onboarding_roles": [
-                { "rank_name": "Sentinel", "id": "1257072906651832413"},
-                { "rank_name": "Guest", "id": "1258186815110910022"}
+                { "rank_name": "Sentinels", "id": "1257072906651832413"},
+                { "rank_name": "Guest", "id": "1258265187648278528"}
             ],
             "onboarding_roles_dividers": [
                 { "rank_name": "officers", "id": "1257395340710252615"},

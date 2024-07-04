@@ -3,6 +3,42 @@ const Discord = require('discord.js')
 const database = require(`../${botIdent().activeBot.botName}/db/database`)
 const config = require('../config.json')
 const exp = {
+    messageReactionAdd: async (reaction,user) => {
+        if (reaction.message.id == "1258200100866359347") {
+        // if (reaction.message.id == "1257893383339511849") {
+            try {
+                if (reaction.message.partial) {
+                    await reaction.message.fetch();
+                }
+                if (reaction.emoji.id == "1091091954072305664") {
+                    const submitter = await guild.members.fetch(user.id)
+                    const onboarding = config[botIdent().activeBot.botName].general_stuff.onboarding_roles 
+                    await submitter.roles.add(onboarding.find(i => i.rank_name == 'Guest').id)
+                }
+            }
+            catch (error) {
+                console.error('Error fetching message or handling reaction:', error)
+            }
+        }
+    },
+    messageReactionRemove: async (reaction,user) => {
+        if (reaction.message.id == "1258200100866359347") {
+        // if (reaction.message.id == "1257893383339511849") {
+            try {
+                if (reaction.message.partial) {
+                    await reaction.message.fetch();
+                }
+                if (reaction.emoji.id == "1091091954072305664") {
+                    const submitter = await guild.members.fetch(user.id)
+                    const onboarding = config[botIdent().activeBot.botName].general_stuff.onboarding_roles 
+                    await submitter.roles.remove(onboarding.find(i => i.rank_name == 'Guest').id)
+                }
+            }
+            catch (error) {
+                console.error('Error fetching message or handling reaction:', error)
+            }
+        }
+    },
     messageDelete: async (message, bot) => {
         if (!message.author.bot) {  
             try {
